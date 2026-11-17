@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uz"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Jahon tarixi — Test</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,Arial,sans-serif;background:#0f172a;color:#e2e8f0;padding:14px}
+.w{max-width:760px;margin:0 auto}.c{background:#1e293b;border-radius:14px;padding:18px;margin-bottom:14px}
+h1{font-size:24px;margin-bottom:8px}p,li{line-height:1.6;color:#cbd5e1}ul{margin:10px 0 14px 20px}
+small{display:block;color:#94a3b8;margin:8px 0 14px;line-height:1.5}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;color:#fff;background:#475569;padding:11px 18px;font-weight:600}
+.g{background:#22c55e;padding:14px 26px;font-size:17px}.r{background:#ef4444}.b{background:#2563eb}button:disabled{opacity:.4}
+.top{position:sticky;top:0;z-index:5;background:#0f172a;padding:8px 0;display:flex;justify-content:space-between;align-items:center;gap:8px}
+#timer{font-size:22px;font-weight:700;color:#fbbf24;font-variant-numeric:tabular-nums}#timer.low{color:#ef4444}
+.n{font-size:13px;color:#94a3b8;margin-bottom:8px}.q{font-size:20px;line-height:1.5;margin-bottom:14px}
+.o{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:12px 14px;margin-bottom:10px;background:#0f172a;border:2px solid #334155;font-size:17px;font-weight:400;border-radius:12px}
+.o.s{border-color:#3b82f6;background:#1e3a8a}.o.ok{border-color:#22c55e;background:#14532d}.o.bad{border-color:#ef4444;background:#7f1d1d}
+.o i{font-style:normal;width:28px;height:28px;border-radius:50%;background:#334155;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.nav{display:flex;justify-content:space-between}
+#grid{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}#grid button{aspect-ratio:1;padding:0;font-size:12px;background:#334155;border-radius:6px}
+#grid .d{background:#2563eb}#grid .u{outline:2px solid #fbbf24}
+.sc{font-size:56px;font-weight:800;color:#22c55e;text-align:center}.ct{text-align:center}
+.sol{margin-top:8px;padding:10px;background:#0f172a;border-left:4px solid #fbbf24;border-radius:6px;color:#cbd5e1}
+.rv{border-top:1px solid #334155;padding-top:14px;margin-top:14px}.h{display:none}
+</style></head><body><div class="w">
+<div id="start" class="c h"><h1>🌍 Jahon tarixi — Test</h1>
+<p>500 000 000 ta variantli savollar bazasidan har safar tasodifiy savollar tushadi.</p>
+<ul><li>100 ta savol</li><li>20 daqiqa vaqt</li><li>Har savolda 4 ta variant (A, B, C, D)</li><li>Oxirida natija va to'g'ri javoblar ko'rsatiladi</li><li>Sahifa yangilansa ham test davom etadi</li></ul>
+<small id="about"></small><div class="ct"><button class="g" id="sb">Testni boshlash</button></div></div>
+<div id="test" class="h"><div class="top"><div id="timer">20:00</div><div id="cnt" style="color:#94a3b8;font-size:14px"></div><button class="r" id="fb">Yakunlash</button></div>
+<div class="c"><div class="n" id="qn"></div><div class="q" id="qt"></div><div id="op"></div>
+<div class="nav"><button id="pv">◀ Oldingi</button><button class="b" id="nx">Keyingi ▶</button></div></div>
+<div class="c"><div id="grid"></div></div></div>
+<div id="result" class="h"><div class="c"><h1 class="ct">Natija</h1><div class="sc" id="sc"></div><p class="ct" id="si"></p>
+<div class="ct" style="margin-top:14px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button id="tw">Faqat xatolarni ko'rsatish</button><button class="g" id="ag">Yangi test</button></div></div>
+<div class="c" id="rv"></div></div></div>
+<script>
+function rng(s){let a=s>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuffle(a,r){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+const pickN=(a,n,r)=>shuffle(a,r).slice(0,n),pick=(a,r)=>a[Math.floor(r()*a.length)];
+const fy=y=>y>0?y+"-yil":"miloddan avvalgi "+(-y)+"-yil";
+const D={
+year:{y:1,f:fy,p:[
+["Marafon jangi",-490],["Iskandar Zulqarnaynning vafoti",-323],["Qin Shixuandining Xitoyni birlashtirishi",-221],["Yuliy Sezarning o'ldirilishi",-44],["Avgustning Rim imperatori bo'lishi",-27],
+["Milan farmoni (xristianlikka erkinlik)",313],["G'arbiy Rim imperiyasining qulashi",476],["Hijra (Madinaga ko'chish)",622],["Talas jangi",751],["Buyuk Karlning imperator toji kiyishi",800],
+["Normanlarning Angliyani zabt etishi",1066],["Birinchi salib yurishining boshlanishi",1096],["Chingizxon Mo'g'ul davlatini tuzishi",1206],["Magna Karta imzolanishi",1215],["Qora o'latning Yevropaga yetib kelishi",1347],
+["Konstantinopolning qulashi",1453],["Kolumbning Amerikaga yetib borishi",1492],["Lyuterning 95 tezisi (Reformatsiya boshlanishi)",1517],["Magellan ekspeditsiyasining boshlanishi",1519],["Ispaniya Armadasining mag'lubiyati",1588],
+["Vestfaliya sulhi (Otuz yillik urushning tugashi)",1648],["Angliyada Shonli inqilob",1688],["AQSh Mustaqillik deklaratsiyasi",1776],["Buyuk Fransuz inqilobining boshlanishi",1789],["Napoleonning imperator deb e'lon qilinishi",1804],
+["Vaterloo jangi",1815],["Yevropadagi «Xalqlar bahori» inqiloblari",1848],["AQShda fuqarolar urushining boshlanishi",1861],["Suvaysh kanalining ochilishi",1869],["Germaniya imperiyasining e'lon qilinishi",1871],
+["Titanik kemasining cho'kishi",1912],["Birinchi jahon urushining boshlanishi",1914],["Rossiyada Oktyabr inqilobi",1917],["Versal shartnomasi",1919],["Buyuk depressiyaning boshlanishi",1929],
+["Gitlerning Germaniyada hokimiyatga kelishi",1933],["Ikkinchi jahon urushining boshlanishi",1939],["Perl-Harbor hujumi",1941],["Stalingrad jangining tugashi",1943],["Normandiya desanti",1944],
+["Xirosimaga atom bombasi tashlanishi",1945],["Birlashgan Millatlar Tashkilotining tuzilishi",1945],["Hindistonning mustaqillikka erishishi",1947],["Xitoy Xalq Respublikasining e'lon qilinishi",1949],["NATOning tuzilishi",1949],
+["Berlin devorining qurilishi",1961],["Kuba raketa inqirozi",1962],["Inson Oyga birinchi marta qadam qo'yishi",1969],["Berlin devorining qulashi",1989],["SSSRning tarqalishi",1991],
+["Maastrixt shartnomasi (Yevropa Ittifoqi)",1992],["11-sentabr terror hujumlari",2001]],
+a:[k=>k+" qaysi yilda sodir bo'lgan?",k=>"«"+k+"» qaysi yilda yuz bergan?"],
+b:[v=>"Quyidagi voqealardan qaysi biri "+v+"ga to'g'ri keladi?",v=>v+"da qaysi tarixiy voqea sodir bo'lgan?"]},
+who:{p:[
+["Yuliy Sezar","Galliyani zabt etgan Rim diktatori"],["Avgust","Rim imperiyasining birinchi imperatori"],["Iskandar Zulqarnayn","Fors imperiyasini tor-mor qilgan Makedoniya shohi"],
+["Chingizxon","Mo'g'ul imperiyasining asoschisi"],["Buyuk Karl","800-yilda imperator toji kiygan franklar qiroli"],["Napoleon Bonapart","Vaterloda mag'lub bo'lgan Fransiya imperatori"],
+["Jorj Vashington","AQShning birinchi prezidenti"],["Avraam Linkoln","AQShda qullikni bekor qilgan prezident"],["Otto fon Bismark","Germaniyani birlashtirgan «temir kansler»"],
+["Vladimir Lenin","Oktyabr inqilobi rahbari"],["Adolf Gitler","Natsistlar Germaniyasining yetakchisi"],["Vinston Cherchill","Ikkinchi jahon urushi davridagi Britaniya bosh vaziri"],
+["Mahatma Gandi","Hindistonda zo'ravonliksiz kurash yetakchisi"],["Nelson Mandela","apartheiddan keyingi Janubiy Afrikaning birinchi qora tanli prezidenti"],["Mustafo Kamol Otaturk","Turkiya Respublikasining asoschisi"],
+["Mao Szedun","Xitoy Xalq Respublikasining asoschisi"],["Kristofor Kolumb","1492-yilda Amerikaga yetib borgan sayyoh"],["Ferdinand Magellan","dunyo bo'ylab birinchi sayohat ekspeditsiyasini boshlagan portugaliyalik"],
+["Yohann Gutenberg","Yevropada bosma dastgohni ixtiro qilgan usta"],["Martin Lyuter","Reformatsiya harakatining boshlovchisi"],["Kleopatra VII","Qadimgi Misrning so'nggi malikasi"],
+["Xammurapi","Bobilning mashhur qonunlar to'plamini yaratgan podshosi"],["Kir II Buyuk","Axmoniylar davlatining asoschisi"],["Pyotr I","Sankt-Peterburgga asos solgan rus imperatori"],
+["Salohiddin","1187-yilda Quddusni qaytarib olgan sarkarda"],["Simon Bolivar","Lotin Amerikasi mustaqillik harakati yetakchisi"],["Qin Shixuandi","Xitoyning birinchi imperatori"],
+["Isaak Nyuton","butun olam tortishish qonunini kashf etgan olim"],["Charlz Darvin","«Turlarning kelib chiqishi» asari muallifi"],["Aleksandr Bell","telefonning ixtirochisi sifatida tanilgan olim"],
+["Nikolay Kopernik","geliosentrik tizim (Quyosh markazda) g'oyasi muallifi"],["Albert Eynshteyn","nisbiylik nazariyasi muallifi"],["Aleksandr Fleming","penitsillinni kashf etgan olim"],
+["Karl Marks","«Kapital» asarining muallifi"],["Gomer","«Iliada» dostoni muallifi hisoblangan qadimgi yunon shoiri"],["Dante Aligyeri","«Ilohiy komediya» muallifi"],
+["Uilyam Shekspir","«Hamlet» tragediyasi muallifi"],["Leonardo da Vinchi","«Mona Liza» portretini chizgan rassom"],["Gerodot","«Tarixning otasi» deb ataladigan yunon tarixchisi"]],
+a:[k=>k+" kim bo'lgan yoki nima bilan mashhur?",k=>k+" haqida qaysi ma'lumot to'g'ri?"],
+b:[v=>"Quyidagi ta'rif kimga tegishli: «"+v+"»?",v=>"«"+v+"» — bu kim?"]},
+loc:{p:[
+["Kolizey","Rim"],["Parfenon ibodatxonasi","Afina"],["Eyfel minorasi","Parij"],["Taj Mahal maqbarasi","Agra (Hindiston)"],["Buyuk Giza piramidalari","Misr"],
+["Machu-Pikchu shahri","Peru"],["Angkor-Vat ibodatxonasi","Kambodja"],["Stounxenj","Angliya"],["Kreml","Moskva"],["Ayasofya","Istanbul"],
+["Alhambra saroyi","Granada (Ispaniya)"],["Versal saroyi","Fransiya"],["Chichen-Itsa piramidasi","Meksika"],["Pompey shahri xarobalari","Italiya"],["Sagrada Familiya sobori","Barselona"],
+["Petra qoya shahri","Iordaniya"],["Buyuk Xitoy devori","Xitoy"],["Bastiliya qal'asi","Parij"],["Pizaning qiya minorasi","Italiya (Piza)"],["Iskandariya mayog'i","Misr (Iskandariya)"]],
+a:[k=>k+" qayerda joylashgan?",k=>k+" qaysi joyga tegishli?"],
+b:[v=>"Quyidagilardan qaysi biri shu joyda joylashgan: "+v+"?",v=>"Qaysi tarixiy obida "+v+" hududida bor?"]}
+};
+const ITEMS=[];Object.keys(D).forEach(c=>D[c].p.forEach((_,i)=>ITEMS.push([c,i])));
+function gen(id){
+ const r=rng(Math.imul(id^0x5bd1e995,0x9E3779B1)>>>0),it=ITEMS[Math.floor(r()*ITEMS.length)],c=D[it[0]],p=c.p[it[1]],f=c.f||(x=>x),d=r()<.5?0:1;
+ let ok,wr;
+ if(c.y&&d===0){const cd=[];for(let o=-40;o<=40;o++){if(!o)continue;const y=p[1]+o;if(p[1]>0?(y>0&&y<=2026):y<0)cd.push(y)}ok=f(p[1]);wr=pickN(cd,3,r).map(f)}
+ else{ok=d===0?f(p[1]):p[0];let cd=c.p.filter(q=>q[0]!==p[0]&&q[1]!==p[1]).map(q=>d===0?f(q[1]):q[0]);cd=[...new Set(cd)].filter(x=>x!==ok);wr=pickN(cd,3,r)}
+ const t=pick(d===0?c.a:c.b,r)(d===0?p[0]:f(p[1])),o=shuffle([ok,...wr],r);
+ return{key:it.join(":"),t,o,c:o.indexOf(ok),s:p[0]+" — "+f(p[1])+"."};
+}
+const TOTAL=100,MIN=20,KEY="jahonTarixState",SPACE=500000000;
+let S=null,Q=[],cur=0,tick=null,ow=false;const $=id=>document.getElementById(id);
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const show=id=>["start","test","result"].forEach(x=>$(x).classList.toggle("h",x!==id));
+function newTest(){const ids=[],ks=new Set();let g=0;
+ while(ids.length<TOTAL&&g++<50000){const id=Math.floor(Math.random()*SPACE),q=gen(id);if(ks.has(q.key))continue;ks.add(q.key);ids.push(id)}
+ S={ids,ans:{},end:Date.now()+MIN*60000,done:false};save();openTest()}
+function openTest(){Q=S.ids.map(gen);cur=0;show("test");draw();upd();clearInterval(tick);tick=setInterval(upd,500)}
+function upd(){const l=Math.max(0,S.end-Date.now()),m=Math.floor(l/60000),s=Math.floor(l/1000)%60;
+ $("timer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");$("timer").classList.toggle("low",l<3*60000);if(l<=0)finish()}
+function draw(){const q=Q[cur];$("qn").textContent="Savol "+(cur+1)+" / "+TOTAL;$("qt").textContent=q.t;$("op").innerHTML="";
+ q.o.forEach((o,i)=>{const b=document.createElement("button");b.className="o"+(S.ans[cur]===i?" s":"");
+  const l=document.createElement("i");l.textContent="ABCD"[i];const sp=document.createElement("span");sp.textContent=o;b.append(l,sp);
+  b.onclick=()=>{S.ans[cur]=i;save();draw()};$("op").appendChild(b)});
+ $("pv").disabled=cur===0;$("nx").disabled=cur===TOTAL-1;$("cnt").textContent="Javob: "+Object.keys(S.ans).length+"/"+TOTAL;$("grid").innerHTML="";
+ for(let i=0;i<TOTAL;i++){const b=document.createElement("button");b.textContent=i+1;if(S.ans[i]!==undefined)b.classList.add("d");if(i===cur)b.classList.add("u");b.onclick=()=>{cur=i;draw()};$("grid").appendChild(b)}}
+function finish(){if(S.done)return;S.done=true;S.fin=Math.min(Date.now(),S.end);save();clearInterval(tick);res()}
+function res(){Q=S.ids.map(gen);show("result");let ok=0;Q.forEach((q,i)=>{if(S.ans[i]===q.c)ok++});
+ const an=Object.keys(S.ans).length,u=Math.round((S.fin-(S.end-MIN*60000))/1000);
+ $("sc").textContent=ok+" / "+TOTAL;
+ $("si").textContent="To'g'ri: "+ok+" · Xato: "+(an-ok)+" · Javobsiz: "+(TOTAL-an)+" · "+Math.round(ok/TOTAL*100)+"% · Vaqt: "+Math.floor(u/60)+" daq "+u%60+" s";rev()}
+function rev(){const bx=$("rv");bx.innerHTML="";Q.forEach((q,i)=>{const a=S.ans[i],gd=a===q.c;if(ow&&gd)return;
+ const d=document.createElement("div");d.className="rv";const h=document.createElement("div");h.className="n";
+ h.textContent="Savol "+(i+1)+" — "+(a===undefined?"javob yo'q":gd?"to'g'ri":"xato");
+ const qt=document.createElement("div");qt.className="q";qt.style.fontSize="18px";qt.textContent=q.t;d.append(h,qt);
+ q.o.forEach((o,k)=>{const e=document.createElement("div");e.className="o "+(k===q.c?"ok":k===a?"bad":"");e.style.fontSize="16px";
+  const l=document.createElement("i");l.textContent="ABCD"[k];const sp=document.createElement("span");sp.textContent=o;e.append(l,sp);d.appendChild(e)});
+ const s=document.createElement("div");s.className="sol";s.textContent="💡 "+q.s;d.appendChild(s);bx.appendChild(d)})}
+$("sb").onclick=newTest;
+$("ag").onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){}ow=false;$("tw").textContent="Faqat xatolarni ko'rsatish";newTest()};
+$("pv").onclick=()=>{if(cur>0){cur--;draw()}};$("nx").onclick=()=>{if(cur<TOTAL-1){cur++;draw()}};
+$("fb").onclick=()=>{const l=TOTAL-Object.keys(S.ans).length;if(confirm(l?l+" ta savolga javob bermadingiz. Baribir yakunlaysizmi?":"Testni yakunlaysizmi?"))finish()};
+$("tw").onclick=()=>{ow=!ow;$("tw").textContent=ow?"Hammasini ko'rsatish":"Faqat xatolarni ko'rsatish";rev()};
+document.addEventListener("keydown",e=>{if($("test").classList.contains("h"))return;const k=e.key.toLowerCase(),i="abcd".indexOf(k)>=0?"abcd".indexOf(k):"1234".indexOf(k);
+ if(i>=0&&i<4){S.ans[cur]=i;save();draw()}else if(e.key==="ArrowRight"&&cur<TOTAL-1){cur++;draw()}else if(e.key==="ArrowLeft"&&cur>0){cur--;draw()}});
+$("about").textContent="Eslatma: baza "+ITEMS.length+" ta tarixiy mavzudan tuziladi. 500 000 000 ta variant — savol shakllari, noto'g'ri javoblar va ularning joylashuvi turlicha birikmalaridan hosil bo'ladi. Bitta testda mavzular takrorlanmaydi.";
+try{S=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){S=null}
+if(S&&!S.done){if(Date.now()>=S.end){S.done=true;S.fin=S.end;save();res()}else openTest()}else if(S&&S.done)res();else show("start");
+</script></body></html>
